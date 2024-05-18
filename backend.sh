@@ -41,7 +41,7 @@ dnf install nodejs -y &>>LOGFILE
 VALIDATE $? "Installing nodejs"
 
 
-id expense 
+id expense&>>LOGFILE
 if [ $? -ne 0 ]
 
 then
