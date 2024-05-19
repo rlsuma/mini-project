@@ -11,7 +11,7 @@ VALIDATE(){
     if [ $1 -ne 0 ]
     then
     echo -e "$2..$R FAILURE $N"
-    exit1
+     exit1
     else 
     echo -e "$2...$G SUCCESS $N"
     fi
@@ -29,8 +29,8 @@ then
    dnf install nginx -y &>>$LOGFILE
    VALIDATE $? "installing nginx"
 
-   systemctl enable ngnix &>>$LOGFILE
-   VALIDATE $? "Enabling nginx"
+   systemctl enable nginx &>>$LOGFILE
+VALIDATE $? "Enabling nginx"
 
    systemctl start nginx &>>$LOGFILE
    VALIDATE $? "starting nginx"
