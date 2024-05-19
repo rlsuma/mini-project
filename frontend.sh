@@ -8,7 +8,7 @@ G="\e[32m"
 y="\e[33m"  
 N="\e[31m"
 VALIDATE(){
-    if[ $1 -ne 0 ]
+    if [ $1 -ne 0 ]
     then
     echo -e "$2..$R FAILURE $N"
     exit1
