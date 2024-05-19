@@ -76,7 +76,7 @@ systemctl start backend &>>$LOGFILE
 VALIDATE $? "Starting backend"
 
 systemctl enable backend &>>$LOGFILE
-VAlIDATE $? "enabling backend"
+VALIDATE $? "enabling backend"
 
 dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "installing MYSQL client"
