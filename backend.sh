@@ -9,7 +9,8 @@ G="\e[32m"
 Y="\e[33"
 N="\e[0m"
 
-
+echo "please enter DB password:"
+read -s mysql_root_password
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -45,8 +46,42 @@ id expense&>>LOGFILE
 if [ $? -ne 0 ]
 
 then
-    useradd expense&>>$LOGFILE
+    useradd expense &>>$LOGFILE
     VALIDATE $? "creating expense user"
 else
    echo -e "Expense user already created ...$Y SKIPPING $N"
 fi
+
+mkdir -p /app &>>$LOGFILE
+VALIDATE $? "creating app directory"
+
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOGFILE
+VALIDATE $? "Downloading backend code "
+
+cd /app &>>$LOGFILE
+unzip /tmp/backend.zip
+VALIDATE $? "Extracted backend code"
+
+npm install  &>>$LOGFILE
+VALIDATE $? "instaling nodejs dependences"
+
+cp /home/ec2-user/mini-project/backend.serivce /etc/systemd/system/backend.service &>>$LOGFILE
+VALIDATE $? "copied backend service"
+
+systemctl daemon-reload &>>$LOGFILE
+VALIDATE $? "Daemon Reload"
+
+systemctl start backend &>>$LOGFILE
+VALIDATE $? "Starting backend"
+
+systemctl enable backend &>>$LOGFILE
+VAlIDATE $? "enabling backend"
+
+dnf install mysql -y &>>$LOGFILE
+VALIDATE $? "installing MYSQL client"
+
+mysql -h backend.rlsu.shop -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
+VALIDATE $? "schema loading"
+
+systemctl restart backend  &>>$LOGFILE 
+VALIDATE $? "Restarting Backend 
