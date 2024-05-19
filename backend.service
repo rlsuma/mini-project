@@ -3,7 +3,7 @@ Description = Backend Service
 
 [Service]
 User=expense
-Environment=DB_HOST="backend.rlsu.shop"
+Environment=DB_HOST="db.rlsu.shop"
 ExecStart=/bin/node /app/index.js
 SyslogIdentifier=backend
 
