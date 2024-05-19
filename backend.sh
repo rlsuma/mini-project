@@ -65,8 +65,9 @@ VALIDATE $? "Extracted backend code"
 npm install  &>>$LOGFILE
 VALIDATE $? "instaling nodejs dependences"
 
-cp /home/ec2-user/mini-project/backend.serivce /etc/systemd/system/backend.service &>>$LOGFILE
-VALIDATE $? "copied backend service"
+cp /home/ec2-user/mini-project/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
+VALIDATE $? "Copied backend service"
+
 
 systemctl daemon-reload &>>$LOGFILE
 VALIDATE $? "Daemon Reload"
